@@ -1,6 +1,4 @@
-case class World(antc: Ant, paintedc: List[Position]) {
-  val ant: Ant = antc
-  val painted: List[Position] = paintedc
+case class World(ant: Ant, painted: List[Position]) {
 
   def next(): World =
     ant match {
