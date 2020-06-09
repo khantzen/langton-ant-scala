@@ -1,12 +1,14 @@
-sealed abstract class Orientation(val clockwise: () => Orientation,
-                                  val antiClockwise: () => Orientation,
-                                  val forward: Position => Position
-                                 )
+object Orientation extends Enumeration {
 
-case object East extends Orientation(() => South, () => North, (pos: Position) => Position(pos.x + 1, pos.y))
+  protected case class Val(clockwise: () => Val,
+                           antiClockwise: () => Val,
+                           forward: Position => Position) extends super.Val
 
-case object South extends Orientation(() => West, () => East, (pos: Position) => Position(pos.x, pos.y - 1))
+  type Orientation = Val
 
-case object West extends Orientation(() => North, () => South, (pos: Position) => Position(pos.x - 1, pos.y))
+  val East: Val = Val(() => Orientation.South, () => Orientation.North, (pos: Position) => Position(pos.x + 1, pos.y))
+  val South: Val = Val(() => Orientation.West, () => Orientation.East, (pos: Position) => Position(pos.x, pos.y - 1))
+  val West: Val = Val(() => Orientation.North, () => Orientation.South, (pos: Position) => Position(pos.x - 1, pos.y))
+  val North: Val = Val(() => Orientation.East, () => Orientation.West, (pos: Position) => Position(pos.x, pos.y + 1))
 
-case object North extends Orientation(() => East, () => West, (pos: Position) => Position(pos.x, pos.y + 1))
+}

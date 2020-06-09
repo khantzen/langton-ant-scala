@@ -1,3 +1,4 @@
+import Orientation._
 import org.scalatest.FunSuite
 
 class LangtonMoveTest extends FunSuite {
@@ -5,7 +6,8 @@ class LangtonMoveTest extends FunSuite {
   test("Ant on white case facing East should end on bellow case facing South and last case should be painted") {
     val ant = Ant(East, Position(0, 0))
     val painted = List()
-    val world = new World(ant, painted)
+    val world = World(ant, painted)
+
 
     assert( world.next() ==  World(Ant(South, Position(0, -1)), List(Position(0, 0))))
   }
